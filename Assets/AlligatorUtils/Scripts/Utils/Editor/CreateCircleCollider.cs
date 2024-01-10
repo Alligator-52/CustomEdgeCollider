@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -11,6 +11,7 @@ public class CreateCircleCollider : EditorWindow
     static int numOfPoints = 2;
     static float circleRadius = 0f;
     static float CurrentRadius = 0.0f;
+    static float rotationAngle = 0.0f;
 
     [MenuItem("Alligator/Create Circle edge collider")]
     public static void CircleEdgeCollider()
@@ -45,6 +46,17 @@ public class CreateCircleCollider : EditorWindow
             UpdateEdgeCollider();
         });
 
+        Slider rotationSlider = new Slider(0, 360, SliderDirection.Horizontal);
+
+        Label rotationLabel = new Label("Rotation by angle :");
+        rotationSlider.RegisterValueChangedCallback(e =>
+        {
+            rotationAngle = e.newValue;
+            radiusLabel.text = $"Rotation by angle: {rotationAngle}";
+
+            UpdateEdgeCollider();
+        });
+
         Button generateButton = new Button()
         {
             style =
@@ -54,18 +66,20 @@ public class CreateCircleCollider : EditorWindow
             }
         };
         generateButton.text = "Generate Edge Collider :";
-        generateButton.clicked += CreateCircleEdgeCollider;
+        generateButton.clicked += CreateEdgeCollider;
 
         root.Add(generateButton);
         root.Add(pointsSlider);
         root.Add(pointsLabel);
         root.Add(radiusSlider);
         root.Add(radiusLabel);
+        root.Add(rotationSlider);
+        root.Add(rotationLabel);
     }
     
 
 
-    public void CreateCircleEdgeCollider()
+    public void CreateEdgeCollider()
     {
      
         var activeGameObj = GetActiveGameObject();
@@ -101,7 +115,7 @@ public class CreateCircleCollider : EditorWindow
 
         for (int i = 0; i <= numOfPoints; i++)
         {
-            float angle = (Mathf.PI * 2.0f / numOfPoints) * i;
+            float angle = ((Mathf.PI * 2.0f / numOfPoints) * i) + Mathf.Deg2Rad * rotationAngle;
             edgePoints[i] = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle)) * circleRadius;
         }
 
