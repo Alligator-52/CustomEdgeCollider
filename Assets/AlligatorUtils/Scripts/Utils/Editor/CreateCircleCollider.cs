@@ -122,4 +122,54 @@ public class CreateCircleCollider : EditorWindow
         edgeCollider.points = edgePoints;
         CurrentRadius = circleRadius;
     }
+
+    #region experimental code for completely custom edge collider
+    //void GenerateEdgeCollider()
+    //{
+    //    var currentObject = GetActiveGameObject();
+    //    SpriteRenderer spriteRenderer = currentObject.GetComponent<SpriteRenderer>();
+    //    EdgeCollider2D edgeCollider = currentObject.GetComponent<EdgeCollider2D>();
+    //    if (edgeCollider == null || spriteRenderer == null)
+    //    {
+    //        spriteRenderer = currentObject.AddComponent<SpriteRenderer>();
+    //        edgeCollider = currentObject.AddComponent<EdgeCollider2D>();
+    //    }
+
+
+    //    if (spriteRenderer != null && edgeCollider != null)
+    //    {
+    //        // Get the sprite's local vertices
+    //        Vector2[] localVertices = GetSpriteVertices(spriteRenderer);
+
+    //        // Convert local vertices to world space
+    //        Vector2[] worldVertices = new Vector2[localVertices.Length];
+    //        for (int i = 0; i < localVertices.Length; i++)
+    //        {
+    //            worldVertices[i] = currentObject.transform.TransformPoint(localVertices[i]);
+    //        }
+
+    //        // Assign the vertices to the edge collider
+    //        edgeCollider.points = worldVertices;
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("SpriteRenderer or EdgeCollider2D component not found.");
+    //    }
+    //}
+
+    //Vector2[] GetSpriteVertices(SpriteRenderer spriteRenderer)
+    //{
+    //    Vector2[] vertices = new Vector2[4];
+
+    //    Bounds bounds = spriteRenderer.bounds;
+
+    //    // Get the local vertices of the sprite
+    //    vertices[0] = new Vector2(bounds.min.x, bounds.min.y);
+    //    vertices[1] = new Vector2(bounds.min.x, bounds.max.y);
+    //    vertices[2] = new Vector2(bounds.max.x, bounds.max.y);
+    //    vertices[3] = new Vector2(bounds.max.x, bounds.min.y);
+
+    //    return vertices;
+    //}
+    #endregion
 }
